@@ -6,8 +6,6 @@
 
 #include <pficommon/data/unordered_map.h>
 
-#include <eitan/eitan.hpp>
-
 #include "config.h"
 #include "cmdline.h"
 
@@ -273,23 +271,6 @@ struct dag_test : public test {
 };
 #endif // HAVE_DAG_DAG_VECTOR_HPP
 
-struct eitan_test : public test {
-  eitan::SparseVector<float> vec;
-  eitan::DenseVector<float> weight;
-
-  eitan_test(const sparse& v, const dense& w) {
-    for (size_t i = 0; i < v.size(); ++i)
-      vec.set_last(v[i].first, v[i].second);
-
-    for (size_t i = 0; i < w.size(); ++i)
-      weight.set(i, w[i]);
-  }
-
-  double prod() const {
-    return eitan::dot(vec, weight);
-  }
-};
-
 int main(int argc, char* argv[]) {
   cmdline::parser p;
   p.add<uint32_t>("dimension", 'n', "# of features", false, 1000000);
@@ -330,6 +311,4 @@ int main(int argc, char* argv[]) {
 #ifdef HAVE_DAG_DAG_VECTOR_HPP
   run(dag_test(v, w), loop, size);
 #endif // HAVE_DAG_DAG_VECTOR_HPP
-
-  run(eitan_test(v, w), loop, size);
 }
