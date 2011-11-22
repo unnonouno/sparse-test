@@ -142,6 +142,8 @@ struct eigen_test : public test {
 
 #ifdef HAVE_BOOST_NUMERIC_UBLAS_VECTOR_HPP
 
+#define NDEBUG
+
 #include <boost/numeric/ublas/vector.hpp>
 #include <boost/numeric/ublas/vector_sparse.hpp>
 
